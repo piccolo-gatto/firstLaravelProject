@@ -1,19 +1,49 @@
-<form method="POST" action="{{ url('/create') }}">
+@extends('layout')
+
+@section('title', "Form")
+
+@section('content')
+<form method="post" action="/form">
     @csrf
-    <div class="form-group">
-        <label for="name">Имя:</label>
-        <input type="text" name="name" id="name" class="form-control">
-        @error('name')
-            <div class="alert alert-danger">{{ $message }}</div>
-        @enderror
-    </div>
-    <div class="form-group">
-        <label for="email">Email:</label>
-        <input type="email" name="email" id="email" class="form-control">
-        @error('email')
-            <div class="alert alert-danger">{{ $message }}</div>
-        @enderror
-    </div>
-    <button type="submit" class="btn btn-primary">Отправить</button>
+
+<div>
+      <label>Name</label>
+      <input type="text" name="name" value="{{ old('name') }}">
+      @error('name')
+      <div>{{$message}}</div>
+      @enderror
+</div>
+<br>
+<div>
+      <label>LastName</label>
+      <input type="text" name="lastname" value="{{ old('lastname') }}">
+      @error('lastname')
+      <div>{{$message}}</div>
+      @enderror
+</div>
+<br>
+<div>
+      <label>City</label>
+      <select name="city">
+        <option value="Irkutsk">Irkutsk</option>
+        <option value="Angarsk">Angarsk</option>
+        <option value="Bratsk">Bratsk</option>
+    </select>
+    @error('city')
+      <div>{{$message}}</div>
+      @enderror
+
+</div>
+<br>
+<div>
+      <label>Email</label>
+      <input type="text" name="email" value="{{ old('email') }}">
+      @error('email')
+      <div>{{$message}}</div>
+      @enderror
+</div>
+<br>
+      <button type="submit" name="button">Отправить</button>
 </form>
 
+@endsection

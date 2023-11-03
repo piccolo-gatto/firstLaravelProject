@@ -3,22 +3,34 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
-use Illuminate\Support\Facades\Storage;
 
 class FormController extends Controller
 {
-    public function show(){
-    	return view('form');
+    public function index(){
+        
+        return view('form');
     }
-    
+
     public function store(Request $request){
-    	$data = $request->validate([
-    		'name' => 'required|alpha|max:255',
-    		'email' => 'required|email|max:255',
-    	]);
-        $data = $request->only('name', 'email');
-        Storage::makeDirectory('data');
-        Storage::put('data/' . uniqid() . '.json', json_encode($data));
-        return redirect('/create')->with('message', 'Success!');
+
+        $request->validate([
+            'name' => 'required',
+            'lastname' => 'required',
+            'city' => 'required',
+            'email' => 'required|email'
+        ], [
+            'name.required' => 'Представтесь',
+            'lastname.required' => 'Фамилии нет',
+            'email.required' => 'Забыли email',
+            'email.email' => 'Не похоже на Email'
+        ]);
+
+        $name = $request->input('name');
+        $lastname = $request->input('lastname');
+        $city = $request->input('city');
+
+        return $name;
+        // return 'Ok';
     }
+
 }

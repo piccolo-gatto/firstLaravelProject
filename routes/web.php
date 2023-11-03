@@ -1,9 +1,7 @@
 <?php
 
 use Illuminate\Support\Facades\Route;
-
-use App\Http\Controllers\FormController;
-use App\Http\Controllers\DataController;
+use App\Http\Controllers;
 
 /*
 |--------------------------------------------------------------------------
@@ -11,8 +9,8 @@ use App\Http\Controllers\DataController;
 |--------------------------------------------------------------------------
 |
 | Here is where you can register web routes for your application. These
-| routes are loaded by the RouteServiceProvider and all of them will
-| be assigned to the "web" middleware group. Make something great!
+| routes are loaded by the RouteServiceProvider within a group which
+| contains the "web" middleware group. Now create something great!
 |
 */
 
@@ -20,8 +18,14 @@ Route::get('/', function () {
     return view('welcome');
 });
 
-Route::get('/create', [FormController::class, 'show']);
-Route::post('/create', [FormController::class, 'store']);
+Route::get('/users', [Controllers\UserController::class, 'index']);
+Route::get('/users/{name}', [Controllers\UserController::class, 'show']);
 
-// Страница для получения всех заметок (GET-запрос)
-Route::get('/table', [DataController::class, 'show']);
+Route::get('/test', [Controllers\TestController::class, 'index']);
+
+
+Route::get('/form', [Controllers\FormController::class, 'index']);
+
+
+Route::post('/form', [Controllers\FormController::class, 'store']);
+

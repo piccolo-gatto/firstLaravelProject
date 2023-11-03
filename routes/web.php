@@ -16,3 +16,9 @@ use Illuminate\Support\Facades\Route;
 Route::get('/', function () {
     return view('welcome');
 });
+
+Route::get('/create', [NoteController::class, 'show']);
+Route::post('/create', [NoteController::class, 'store']);
+
+// Страница для получения всех заметок (GET-запрос)
+Route::get('/table', [NoteController::class, 'showData']);

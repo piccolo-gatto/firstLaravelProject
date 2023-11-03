@@ -11,13 +11,14 @@ class FormController extends Controller
     	return view('form');
     }
     
-    public function store(){
-    	$data = $recuest->validadete([
+    public function store(Request $request){
+    	$data = $request->validate([
     		'name' => 'required|alpha|max:255',
     		'email' => 'required|email|max:255',
     	]);
-    $uniqueFileName = 'data_' . time() . '.json';
-    filee_put_contents(storage_path($uniqueFileName), json_encode($data));
-    return redirect('/create')->with('success', 'Данные успешно сохранены!');
+        $data = $request->only('name', 'email');
+        Storage::makeDirectory('data');
+        Storage::put('data/' . uniqid() . '.json', json_encode($data));
+        return redirect('/create')->with('message', 'Success!');
     }
 }

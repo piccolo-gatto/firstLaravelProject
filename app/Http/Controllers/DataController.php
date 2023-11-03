@@ -1,5 +1,6 @@
 <?php
 
+
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
@@ -8,18 +9,14 @@ use Illuminate\Support\Facades\Storage;
 class DataController extends Controller
 {
     public function show(){
-        $jsonDirectory = storage_path();
         
-        $jsonFiles = File::files($jsonDirectory, function ($filename) {
-            return pathinfo($filename, PATHINFO_EXTENSION) === 'json';
-        });
-    
+        $files = Storage::files('data');
         $data = [];
-    
-        foreach ($jsonFiles as $jsonFile) {
-            $data[] = json_decode(File::get($jsonFile), true);
+        foreach ($files as $file){
+            $id = basename($file, '.json');
+            $data[$id] = json_decode(Storage::get($file));
         }
-    
+        
         return view('data', ['data' => $data]);
     }
 }

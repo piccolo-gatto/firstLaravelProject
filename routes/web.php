@@ -17,8 +17,8 @@ Route::get('/', function () {
     return view('welcome');
 });
 
-Route::get('/create', [NoteController::class, 'show']);
-Route::post('/create', [NoteController::class, 'store']);
+Route::get('/create', [FormController::class, 'show']);
+Route::post('/create', [FormController::class, 'store']);
 
 // Страница для получения всех заметок (GET-запрос)
-Route::get('/table', [NoteController::class, 'showData']);
+Route::get('/table', [DataController::class, 'show']);
